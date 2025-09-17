@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "cv.html",
+    "href": "cv.html",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "Download my CV here."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome to my Website!",
+    "section": "",
+    "text": "My name is Josi and I am a PhD candidate in statistical genetics and education at the department of Biological Psychology at the Vrije Universiteit Amsterdam. Under the supervision of dr. Elsje van Bergen and prof. dr. Conor Dolan, I work on modeling gene-environment interplay in the context of childhood educational development. I apply structural equation models to twin data to gain a better understanding of genetical and environmental influences on educational outcomes.\n\nI hold a Research Master’s degree from the University of Amsterdam, where I majored in Psychological Methods. My time at the UvA has fueled my passion for coding in R and Python to answer questions about human behaviour. In the past, I have worked as a student intern at BrainsFirst, where I applied machine learning models to occupational data to provide career advice.\n\nMy main interests are statistics, twin modeling, childhood development, and causality. I recognize the inherent need for interdisciplinary research in my field, and am curious how genetic findings can be translated into accessible narratives for the general public. I welcome connections with fellow researchers and am open to collaborations!"
+  }
+]

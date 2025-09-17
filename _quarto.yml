@@ -1,5 +1,6 @@
 project:
   type: website
+  output-dir: docs
 
 website:
   title: "Josefina Bernardo, MSc"
@@ -20,4 +21,5 @@ format:
     toc: true
 
 editor: visual
+
 
