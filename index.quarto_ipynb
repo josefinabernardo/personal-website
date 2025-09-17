@@ -1,0 +1,46 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"Home\"\n",
+        "---\n",
+        "\n",
+        "```{html}\n",
+        "<style>\n",
+        "  .rounded-image {\n",
+        "    width: 200px; /* Adjust as needed */\n",
+        "    height: 200px; /* Adjust to be same as width */\n",
+        "    border-radius: 50%; /* Makes the image round */\n",
+        "    display: block; /* Centers the image */\n",
+        "    margin: auto; /* Centers the image */\n",
+        "  }\n",
+        "</style>\n",
+        "<img src=\"images/IMG_7863_4.jpg\" alt=\"Description\" class=\"rounded-image\">\n",
+        "```\n",
+        "\n",
+        "\n",
+        "\n",
+        "# Welcome to my website!\n",
+        "\n",
+        "My name is Josi and I am a PhD candidate in statistical genetics and education at the [department of Biological Psychology of the VU Amsterdam](https://vu.nl/en/about-vu/faculties/faculty-of-behavioural-and-movement-sciences/departments/biological-psychology). Under the supervision of dr. Elsje van Bergen and prof. dr. Conor Dolan, I work on modeling gene-environment interplay in the context of childhood educational development. I apply structural equation models to twin data to gain a better understanding of genetical and environmental influences on educational outcomes.\\\n",
+        "\\\n",
+        "I hold a [Research Master's degree from the University of Amsterdam](https://www.uva.nl/shared-content/programmas/en/research-masters/psychology-research/psychology-research-msc.html), where I majored in Psychological Methods. My time at the UvA has fueled my passion for coding in R and Python to answer questions about human behaviour. In the past, I have worked as a student intern at [BrainsFirst](https://www.brainsfirst.com/nl/home-nl), where I applied machine learning models to occupational data to provide career advice.\\\n",
+        "\\\n",
+        "My main interests are statistics, twin modeling, childhood development, and causality. I recognize the inherent need for interdisciplinary research in my field, and am curious how genetic findings can be translated into accessible narratives for the general public. I welcome connections with fellow researchers and am open to collaborations!"
+      ],
+      "id": "4b31655c"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
