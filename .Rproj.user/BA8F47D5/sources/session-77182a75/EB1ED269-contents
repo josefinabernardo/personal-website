@@ -1,8 +1,0 @@
----
-title: "Curriculum Vitae"
----
-
-```{r, echo = FALSE, out.width=600, out.height=400}
-knitr::include_graphics('~/personal-website/documents/CV_JosefinaBernardo_PersonalWebsite.pdf') 
-xfun::embed_file('~/personal-website/documents/CV_JosefinaBernardo_PersonalWebsite.pdf', text = 'Download my CV here.')
-```

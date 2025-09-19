@@ -1,0 +1,169 @@
+---
+title: "OpenMx Part 1 - Ingredients of a Model"
+author: "Josefina Bernardo"
+date: "2025-09-18"
+output: html_document
+---
+
+In the first part of this tutorial series I will introduce the functions in OpenMx that we use to create SEM models in OpenMx. A lot of this is taken from the [OpenMx User Guide](https://vipbg.vcu.edu/vipbg/OpenMx2/docs/OpenMx/latest/OpenMxUserGuide.pdf) which I've found a very helpful resource.
+
+## Creating a model
+
+We write a model by using the `mxModel()` function which takes all the model compoents, such as matrices, fit functions, or algebras, as its' arguments. We can also use this function to take an existing model and add to it in some way. Here, we create an empty model:
+
+```{r}
+library(OpenMx)
+myModel <- mxModel(model = "IAmEmpty")
+```
+
+This model in itself does not do anything. We need to run it if we want to know the output of the model. We can do so using `mxRun()`:
+
+```{r}
+myModelRun <- mxRun(myModel)
+summary(myModelRun)
+```
+
+## Creating matrices
+
+The next step to writing a model is supplying it with arguments, which are often matrices. SEM is also called covariance modell
+
+## Notes on Style
+
+There are three different styles of writing scripts: \* piecewise style: where all parts of the model are created as seperate objects outside of the function and then called upon in the function \* iterative/recursive/stepwise style: starting with one mxModel object and using that as the basis for the next one \* classic style: where all elements are created within one function
+
+### Matrix creation
+
+```{r}
+myAmatrix <- mxMatrix(type="Full", nrow=1, ncol=1, values=4, name="Amatrix")
+myAmatrix
+
+myModel1     <- mxModel( mxMatrix(type="Full", nrow=1, ncol=1, values=4, name="Amatrix") )
+myModel1Run  <- mxRun(myModel1)
+myModel1Run
+myModel1Run$matrices
+
+myModel2     <- mxModel(myAmatrix, name="model2")
+myModel2Run  <- mxRun(myModel2)
+myModel2Run 
+```
+
+### Algebra Creation
+
+We can perform matrix algebra using `mxAlgebra()` which takes `expression` as its main argument.
+
+```{r}
+library(OpenMx)
+myAmatrix <- mxMatrix(type = "Full", nrow = 1, ncol = 1, values = 4, name = "Amatrix")
+myBmatrix <- mxAlgebra(expression = Amatrix + 1, name = "Bmatrix")
+myBmatrix
+```
+
+The result has not yet been computed because we have not run the model yet.
+
+```{r}
+myModel3 <- mxModel(myAmatrix, myBmatrix, name = "model3")
+myModel3Run <- mxRun(myModel3)
+myModel3$Bmatrix
+myModel3Run$Bmatrix
+```
+
+### Pass by value
+
+Pass by value refers to the way functions work in the R language. Functions operate on a copy of the object and thus so not change the value of the object itself. So: The operation performed on the B matrix does not change the value of the B matrix. If we want to change the value of it, we need to capture the result of the operation (or of the function call).
+
+## Data functions
+
+Most models are fitted to data and not just one number. To do that, we need to use another function called `mxData()`.
+
+```{r}
+data("demoOneFactor")
+library(psych)
+describe(demoOneFactor)
+```
+
+This is the raw data but more commonly used are the summary statistics such as the covariance matrix.
+
+```{r}
+# Covariance matrix
+exampleDataCov <- mxData(observed = cov(demoOneFactor), type = "cov", numObs = nrow(demoOneFactor))
+exampleDataCov
+
+# Raw data
+exampleDataRaw <- mxData(observed = demoOneFactor, type = "raw")
+head(exampleDataRaw$observed)
+```
+
+## Model functions
+
+For more context on this read Path Analysis - A Primer by Ching Chun Li.
+
+```{r}
+print(colnames(demoOneFactor))
+manifests <- names(demoOneFactor)
+latents <- c("G")
+```
+
+### Path creation
+
+Paths are created using `mxPath()`- we can create several paths at once with the same function.
+
+-   The `from` and `to` arguments specify origin and destination. If the `to` argument is missing it is assumed to be identical to the `from` argument.
+
+-   `connect` specifies the type of connection - here we use the default single type which matches element i of the source is connected to element i of the sink
+
+-   `arrows` specifies whether a path is unidirectional (1) or bidirectional (2)
+
+-   The next three arguments are vectors `free` specifies whether a path is free or fixed, `values` specifies the starting point of the starting value of the path and `labels` is a character vector that assigns a label to each parameter
+
+![](Downloads/OneFactorModel.png)
+
+```{r}
+causalPaths <- mxPath(from = latents, to = manifests)
+residualVars <- mxPath(from = manifests, arrows = 2)
+factorVars <- mxPath(from = latents, arrows = 2, free = FALSE, values = 1.0)
+```
+
+### Equations
+
+To create the model using equations and matrix algebra, we use this formula:
+
+![](https://openmx.ssri.psu.edu/docs/OpenMx/latest/_images/math/34c1f96a1687dce673f5f68be6523e5ebeb2a13c.png)
+
+where facLoadings is a column vector and resVariances is a diagonal matrix of residual variances. To realize this in OpenMx, we first specify the matrices using `mxMatrix()` and then specify the operation using `mxAlgebra()`.
+
+### Matrix Creation
+
+```{r}
+mxFacLoadings <- mxMatrix(type = "Full", nrow = 5, ncol = 1, free = TRUE, values = 0.2, name = "facLoadings")
+mxFacVariances <- mxMatrix(type = "Symm", nrow = 1, ncol = 1, free = FALSE, values = 1, name = "facVariances")
+mxResVariances <- mxMatrix(type = "Diag", nrow = 5, ncol = 5, free = TRUE, values = 0, name = "resVariances")
+```
+
+### Algebra creation
+
+```{r}
+mxAlgebra(expression = facLoadings %*% facVariances * t(facLoadings) + resVariances, name = "expCov") 
+```
+
+### Expectation - Fit Function
+
+The difference between the expected and observed covariance matrix are minimized using a fit function. Now that we have created the expected covariances, we need to link the two using `mxExpectation()` and `mxFitFunction()`. When using a path specification of the model, the fit function is always `RAM` which stands for Reticular Action Model. We do not need to work with the expectation and fit function functions but we can just use the `type = "RAM"` argument in the model function.
+
+### Normal Expectation
+
+When using the matrix specification, we use the function `mxExpectationNormal()` to define how model expectations are calculated. Here we only specified the covariance, but we can also supply the means (using the `covariance` and `mean` arguments, respectively). Then we use the maximum likelihood fit function with `mxFitFuntionML()` statement.
+
+```{r}
+expectCov <- mxExpectationNormal(covariance = "expCov", dimnames = manifests)
+funML <- mxFitFunctionML()
+```
+
+If we fit raw data, we also need to specify the means. Just like the `covariance` argument, the `means` argument takes an `mxMatrix` or an `mxAlgebra` object.
+
+```{r}
+mxExpMeans <- mxMatrix(type = "Full", nrow = 1, ncol = 5, free = FALSE, values = colMeans(demoOneFactor), name = "expMeans")
+mxExpMeans
+expectCovMeans <- mxExpectationNormal(covariance = "expCov", means = "expMeans", dimnames = manifests)
+```
+
+Data can be continuous or categorical (the latter being either binary or ordinal). For continuous data, we specify means and covariances (as above). For categorical data we also need to specify the `thresholds` argument.

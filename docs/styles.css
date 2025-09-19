@@ -7,3 +7,82 @@
       height: 250px;
       width: 250px;
     }
+    
+.project-grid {
+  display: flex;           /* arrange tiles horizontally */
+  flex-wrap: nowrap;       /* keep them in one row if possible */
+  gap: 2rem;               /* space between tiles */
+  justify-content: center; /* center the row */
+  align-items: flex-start; /* align tiles at the top */
+  margin-top: 2rem;
+}
+
+.article-tile {
+  width: 250px;            
+  text-align: center;      /* center everything */
+  font-family: sans-serif; /* cleaner look */
+}
+
+.article-tile h3 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.3rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.article-tile p {
+  margin: 0;               /* remove extra spacing */
+  font-size: 0.9rem;
+  color: #555;             /* softer gray for caption */
+  line-height: 1.3;
+}
+
+.project-img {
+  width: 250px;
+  height: 250px;
+  object-fit: contain; /* scale image to fit inside the box */
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.project-img:hover {
+  transform: scale(1.05);
+}
+
+
+.article-title h3 {
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.article-title p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Make body background white */
+body {
+  background-color: #ffffff !important;  /* !important ensures it overrides theme */
+}
+
+/* Closeread sticky images */
+.cr-sticky {
+  position: sticky !important;   /* ensure sticky works */
+  top: 20px !important;
+}
+
+.sticky-left {
+  float: left !important;
+  margin-right: 1em !important;
+}
+
+.sticky-right {
+  float: right !important;
+  margin-left: 1em !important;
+}
+
+.sticky-left img,
+.sticky-right img {
+  max-width: 300px;
+  border-radius: 8px;
+}
