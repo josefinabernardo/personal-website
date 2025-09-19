@@ -19,5 +19,14 @@
   },
   "norway.qmd": {
     "norway.html": "a4dab466"
+  },
+  "projects.qmd": {
+    "projects.html": "e2080525"
+  },
+  "projects/norway.qmd": {
+    "norway.html": "39def831"
+  },
+  "projects/gnomesims.qmd": {
+    "gnomesims.html": "9e3fccb9"
   }
 }

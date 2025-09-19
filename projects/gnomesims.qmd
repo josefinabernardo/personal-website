@@ -1,0 +1,10 @@
+---
+title: "gnomesims"
+description: "R package for genomic simulations including gene-environment correlation."
+date: 2025-09-19
+image: ../images/logo.png
+link: https://josefinabernardo.github.io/gnomesims/
+categories: [R, package]
+weight: 1
+listing: false   # prevents Quarto from trying to render a local page
+---

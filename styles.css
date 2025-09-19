@@ -86,3 +86,35 @@ body {
   max-width: 300px;
   border-radius: 8px;
 }
+
+/* General listing container */
+.listing {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Container for each listing item */
+.listing > div, .listing > section {
+  display: flex;
+  align-items: center; /* vertically centers text next to image */
+  gap: 1rem;           /* space between image and text */
+  margin-bottom: 2rem; /* space between items */
+}
+
+/* Make images fixed size, keep full logo visible */
+.listing-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain; /* ensures entire logo is visible */
+  flex-shrink: 0;      /* prevents shrinking */
+}
+
+/* Text block next to the image */
+.listing h3 {
+  margin: 0 0 0.25rem 0;
+}
+
+.listing p {
+  margin: 0;
+}

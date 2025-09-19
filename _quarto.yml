@@ -10,7 +10,7 @@ website:
     left:
       - text: Home
         href: index.qmd
-      - research.qmd
+      - projects.qmd
       - cv.qmd
 
 format:

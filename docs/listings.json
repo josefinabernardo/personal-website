@@ -1,0 +1,13 @@
+[
+  {
+    "listing": "/research.html",
+    "items": []
+  },
+  {
+    "listing": "/projects.html",
+    "items": [
+      "/projects/gnomesims.html",
+      "/projects/norway.html"
+    ]
+  }
+]
